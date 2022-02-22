@@ -63,3 +63,13 @@ html {
     opacity: 1;
   }
 }
+
+.container {
+  display: flex;
+}
+.container .containerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
