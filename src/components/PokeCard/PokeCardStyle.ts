@@ -24,10 +24,12 @@ export const PokeImgStyle = styled.img<ImgProps>`
 `;
 
 export const PokeGrid = styled.div<PropsSinglePoke>`
-  width: 100%;
+  max-width: 680px;
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 150px));
   grid-gap: 20px;
+  ${({ maxH }) => maxH && `max-height: ${maxH};`}
+  ${({ maxH }) => maxH && `overflow-y: scroll;`}
   & > a {
     text-decoration: none;
     color: #0e0e0e;
@@ -131,6 +133,7 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
 
 type PropsSinglePoke = {
   wBf?: string;
+  maxH?: string;
 };
 
 export const StatusPoke = styled.div<PropsSinglePoke>`

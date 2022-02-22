@@ -13,8 +13,9 @@ export const Home = ()=>{
   const [loading, setLoading] = useState(false)
   useEffect(()=>{
     setLoading(true)
-    reqApi(20); 
-    listaParams.set('limit', '20');
+    reqApi(Number(limit)); 
+    if(limit) listaParams.set('limit', `${limit}`);
+    else listaParams.set('limit', `20`);
     setListaParams(listaParams);
   },[])
   const reqApi = async (limitParam?: number, offsetParam?: number)=>{
@@ -39,7 +40,7 @@ export const Home = ()=>{
   return  (
     <div>
       {data && <>
-      <ShowPokemon data={data} basicInfo={basicInfo} limit={limit} setListaParams={setListaParams} listaParams={listaParams} reqApi={reqApi}/>
+      <ShowPokemon maxH="80vh" data={data} basicInfo={basicInfo} limit={limit} setListaParams={setListaParams} listaParams={listaParams} reqApi={reqApi}/>
       </>}
     </div>
   )

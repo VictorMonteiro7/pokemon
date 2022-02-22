@@ -30,8 +30,8 @@ export const PokemonCard = (props: PropsType)=>{
         </div>
         <div className="status">
           {props.data.stats.map((stat:any)=>{
-            return <S.StatusPoke wBf={stat.base_stat}>
-              <p key={stat.stat.name}>{stat.stat.name.replace('-', ' ')}
+            return <S.StatusPoke key={stat.stat.name} wBf={stat.base_stat}>
+              <p>{stat.stat.name.replace('-', ' ')}
               <span aria-label={stat.base_stat}>
               </span>
               </p>

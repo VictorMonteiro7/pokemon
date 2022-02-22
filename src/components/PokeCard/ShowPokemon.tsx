@@ -11,6 +11,7 @@ type PropsType = {
   listaParams: URLSearchParams;
   setListaParams: (listaParams: URLSearchParams) => void;
   reqApi: (limitParam?: number, offsetParam?: number) => void; 
+  maxH?: string;
 }
 
 export const ShowPokemon = (props: PropsType)=>{
@@ -18,7 +19,7 @@ export const ShowPokemon = (props: PropsType)=>{
   return (
     <>
           <p>Existem {props.data.count} pokémons cadastrados.</p>
-      <S.PokeGrid>
+      <S.PokeGrid maxH={props.maxH}>
       {props.data.results.map((item, index)=>{        
         let basicInfos = props.basicInfo.filter(e=>e.forms[0].name === item.name);
         let imgPoke: any = '';
