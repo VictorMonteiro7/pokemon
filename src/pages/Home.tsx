@@ -38,7 +38,7 @@ export const Home = ()=>{
   }
   if(loading) return <Loading />
   return  (
-    <div>
+    <div style={{padding: '0 0 50px 0'}}>
       {data && <>
       <ShowPokemon maxH="80vh" data={data} basicInfo={basicInfo} limit={limit} setListaParams={setListaParams} listaParams={listaParams} reqApi={reqApi}/>
       </>}
