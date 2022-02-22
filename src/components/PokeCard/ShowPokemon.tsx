@@ -2,6 +2,7 @@ import { PokemonCard } from "./PokemonCard";
 import * as S from "./PokeCardStyle";
 import { PokemonId, TypePokemonBase } from "../../types/MainTypes";
 import { useNavigate } from "react-router-dom";
+import { Pokeball } from "../Loading/Pokeball";
 
 
 type PropsType = {
@@ -18,7 +19,7 @@ export const ShowPokemon = (props: PropsType)=>{
   const navigate = useNavigate();
   return (
     <>
-          <p>Existem {props.data.count} pokémons cadastrados.</p>
+          <p style={{display: 'inline-flex', justifyContent: 'center', alignItems: 'center'}}><Pokeball wt="24px" ht="24px" bd="0.2px solid #000" sm={true} mg="0 5px 0 0"></Pokeball> {props.data.count} pokémons cadastrados.</p>
       <S.PokeGrid maxH={props.maxH}>
       {props.data.results.map((item, index)=>{        
         let basicInfos = props.basicInfo.filter(e=>e.forms[0].name === item.name);

@@ -5,15 +5,18 @@ export type PropsPokeballType = {
   ht?: string;
   bd?: string;
   an?: boolean;
+  sm?: boolean;
+  mg?: string;
 };
 
 export const PokeBallWrapper = styled.div<PropsPokeballType>`
-  display: flex;
+  display: ${({ sm }) => (sm ? "inline-flex" : "flex")};
   flex-direction: column;
   align-items: center;
   width: ${({ wt }) => (wt ? wt : "300px")};
   height: ${({ ht }) => (ht ? ht : "300px")};
   position: relative;
+  ${({ mg }) => mg && `margin: ${mg};`}
   & > p {
     position: absolute;
     font-size: 1rem;
@@ -59,7 +62,7 @@ export const PokeBallWrapper = styled.div<PropsPokeballType>`
       width: 20%;
       height: 20%;
       border-radius: 50%;
-      border: 0.625em solid #000;
+      border: ${({ bd }) => (bd ? `${bd}` : "0.625em solid #000;")}
       background: #fff;
       z-index: 9;
       position: relative;

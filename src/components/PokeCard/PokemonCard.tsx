@@ -10,6 +10,7 @@ type PropsType = {
   type?: string;
   wImg?: string;
   hImg?: string;
+  sm?: boolean;
 }
 
 export const PokemonCard = (props: PropsType)=>{
