@@ -182,12 +182,12 @@ export const SinglePoke = styled(PokeGrid)`
   align-items: center;
   grid-template-columns: unset;
   max-width: 30%;
-  margin: 0 auto;
+  margin: 3rem auto 0 auto;
   & > div {
     max-width: 300px;
     width: 100%;
     row-gap: 15px;
-    padding: 50px 0;
+    padding: 20px 0;
     & .types {
       display: flex;
       justify-content: center;

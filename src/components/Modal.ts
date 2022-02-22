@@ -27,7 +27,7 @@ export const ModalContainer = styled.div<ModalProps>`
         background: linear-gradient(
           to bottom,
           ${({ bg }) => (bg ? bg : "var(--ice)")} 23%,
-          transparent 23%
+          #fefefe 23%
         );
       }
     }
