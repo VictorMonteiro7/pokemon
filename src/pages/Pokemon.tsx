@@ -5,6 +5,7 @@ import { PokemonCard } from '../components/PokeCard/PokemonCard';
 import { PokemonId } from '../types/MainTypes';
 import * as S from '../components/PokeCard/PokeCardStyle';
 import { Loading } from '../components/Loading';
+import { ModalContainer } from '../components/Modal';
 
 export const Pokemon = () => {
   const {id} = useParams();
@@ -30,12 +31,14 @@ export const Pokemon = () => {
    
   if(loading) return <Loading/>
   return (
+    <ModalContainer bg={`var(--${data?.types[0].type.name})`}>
     <S.SinglePoke>
       {data && <>         
-        <PokemonCard hImg='120px' wImg='120px' name={data.forms[0].name} imgPoke={animated ? animated : data.sprites.front_default} data={data} />
+        <PokemonCard  hImg='120px' wImg='120px' name={data.forms[0].name} imgPoke={animated ? animated : data.sprites.front_default} data={data} />
       </>
       }
       <S.PokeButton onClick={()=>navigate(-1)}>Voltar</S.PokeButton>
     </S.SinglePoke>
+    </ModalContainer>
   )
 }
