@@ -187,7 +187,7 @@ export const SinglePoke = styled(PokeGrid)`
     max-width: 300px;
     width: 100%;
     row-gap: 15px;
-    padding: 20px 0;
+    padding: 50px 0;
     & .types {
       display: flex;
       justify-content: center;
