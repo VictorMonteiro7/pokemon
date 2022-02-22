@@ -47,6 +47,11 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     @media (max-width: 768px) {
       margin: 0 auto;
     }
+    & h3 > span {
+      font-weight: 300;
+      font-style: italic;
+      font-size: 80%;
+    }
     & h3,
     & > div > h3 {
       text-transform: capitalize;
@@ -160,7 +165,7 @@ export const StatusPoke = styled.div<PropsSinglePoke>`
         width: ${({ wBf }) => (wBf ? `${wBf}%` : "0%")};
         height: 100%;
         background: #ff0000;
-        animation: progress ${Math.random() * 10}s forwards;
+        animation: progress ${Math.random() * 3}s forwards;
         @keyframes progress {
           from {
             width: 0%;
