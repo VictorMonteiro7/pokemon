@@ -91,32 +91,37 @@ export type PokemonId = {
 };
 
 export type PokeBasicInfo = {
-  id: number;
-  sprites: {
-    back_default?: string;
-    back_female?: string;
-    back_shiny?: string;
-    back_shiny_female?: string;
-    front_default?: string;
-    front_female?: string;
-    front_shiny?: string;
-    front_shiny_female?: string;
-    other: {
-      dream_world: TypeSprites;
-      home: TypeSprites;
-      "official-artwork": TypeSprites;
-    };
-    versions: {
-      [key: string]: {
-        [key: string]: {
-          animated: TypeSprites;
-        };
-      };
-    };
+  id?: number;
+  sprites?: {
+    front_default: string;
+    animation: string;
   };
-  forms: TypePokemon[];
-  types: {
+  forms?: TypePokemon[];
+  types?: {
     slot: number;
     type: TypePokemon;
+  }[];
+  abilities?: {
+    [key: string]: any;
+  };
+  stats?: {
+    base_stats: number;
+    effort: number;
+    stat: TypePokemon;
+  }[];
+  typeWaS?: TypePokemonTypes;
+};
+
+export type TypePokemonTypes = {
+  damage_relations?: {
+    double_damage_from: TypePokemon[];
+    double_damage_to: TypePokemon[];
+    half_damage_from: TypePokemon[];
+    half_damage_to: TypePokemon[];
+    no_damage_from: TypePokemon[];
+    no_damage_to: TypePokemon[];
+  };
+  pokemon?: {
+    pokemon: TypePokemon;
   }[];
 };

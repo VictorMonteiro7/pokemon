@@ -55,6 +55,8 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     & h3,
     & > div > h3 {
       text-transform: capitalize;
+      color: #fefefe;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
     }
     &:hover {
       box-shadow: 0px 12px 40px -5px rgb(90 96 100 / 30%);
@@ -125,7 +127,7 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     }
   }
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
   }
   @media (max-width: 576px) {
     grid-template-columns: repeat(3, minmax(100px, 30%));
@@ -233,5 +235,11 @@ export const PokeButton = styled.button<PropsButton>`
   cursor: pointer;
   &:hover {
     filter: brightness(0.95);
+  }
+  &[disabled] {
+    filter: brightness(0.75);
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #fefefe;
   }
 `;
