@@ -18,7 +18,7 @@ export const useReqSinglePoke = () =>{
       setLoading(true)
       const res: PokemonId = await Api.get(`/pokemon/${id}`);    
       setData(res);
-      const types: TypePokemonTypes = await Api.get(`https://pokeapi.co/api/v2/type/${res.types[0].type.name}`); 
+      const types: TypePokemonTypes = await Api.get(`/type/${res.types[0].type.name}`); 
       dispatch({
         type: 'SET_POKE_INFO',
         payload: {

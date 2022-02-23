@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { PokeBasicInfo } from "../types/MainTypes";
-import {PokeInitialState, PokeReducer} from '../reducers/PokeReducer';
+import {PokeInitialState, PokeReducer, PokeDataReducer, DataInitialState} from '../reducers/PokeReducer';
 import { ActionReducerType } from "../types/ActionReducerType";
 
 type initialStateType = {
   pokeInfo: PokeBasicInfo;
+  dataInfo: PokeBasicInfo[];
 }
 type contextType = {
   state: initialStateType;
@@ -12,7 +13,8 @@ type contextType = {
 }
 
 const initialState = {
-    pokeInfo: PokeInitialState
+    pokeInfo: PokeInitialState,
+    dataInfo: DataInitialState
 }
 
 export const Context = createContext<contextType>({
@@ -21,7 +23,8 @@ export const Context = createContext<contextType>({
 })
 
 const mainReducer = (state: initialStateType , action: ActionReducerType) => ({
-  pokeInfo: PokeReducer(state.pokeInfo, action)
+  pokeInfo: PokeReducer(state.pokeInfo, action),
+  dataInfo: PokeDataReducer(state.dataInfo, action)
 })
 
 export const ContextProvider: React.FC = ({ children }) => {

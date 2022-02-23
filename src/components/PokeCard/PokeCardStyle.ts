@@ -55,6 +55,8 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     & h3,
     & > div > h3 {
       text-transform: capitalize;
+      color: #fefefe;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
     }
     &:hover {
       box-shadow: 0px 12px 40px -5px rgb(90 96 100 / 30%);
@@ -233,5 +235,11 @@ export const PokeButton = styled.button<PropsButton>`
   cursor: pointer;
   &:hover {
     filter: brightness(0.95);
+  }
+  &[disabled] {
+    filter: brightness(0.75);
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #fefefe;
   }
 `;

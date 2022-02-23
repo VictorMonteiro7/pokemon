@@ -2,27 +2,33 @@ import {useContext} from 'react';
 import { Loading } from "../components/Loading";
 import { useReqData} from '../hooks/useReqData'
 import {Context} from '../contexts/Context'
-import {PokemonCard} from '../components/PokeCard/PokemonCard'
-import {ShowPokemon} from '../components/PokeCard/ShowPokemon'
-
+import { PokeGrid } from '../components/PokeCard/PokeGrid';
+import * as S from '../components/PokeCard/PokeCardStyle';
 
 export const Home = ()=>{  
-  const {data, loading, basicInfo, offset, limit, setListaParams, listaParams, reqApi} = useReqData();
-  const {state} = useContext(Context)
+  const {loading, offset, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn} = useReqData();  
+  const {dispatch} = useContext(Context);
   if(loading) return <Loading />
   return  (
-    <div style={{padding: '0 0 50px 0'}}>
-      {data && <div className="container">
-        <div className="containerLeft">
-        <ShowPokemon offset={offset} maxH="80vh" data={data} basicInfo={basicInfo} limit={limit} setListaParams={setListaParams} listaParams={listaParams} reqApi={reqApi}/>
-        </div>
-        {state.pokeInfo.id && 
-          <div className="containerRight">
-          {state.pokeInfo.forms && <p>{state.pokeInfo.forms[0].name}</p>}
-          <PokemonCard hImg='400px' wImg='400px' bg="#ccc" imgPoke={state.pokeInfo.sprites?.animation || state.pokeInfo.sprites?.front_default}/>
-            </div>
-        }
-      </div>}
-    </div>
+    <>
+    <PokeGrid />
+   <S.PokeButton mg="20px 0 0 0" disabled={loadingBtn} onClick={()=>{
+        setLoadingBtn(true);
+        let nParam = Number(limit) + 20;
+        listaParams.set('limit', nParam.toString());
+        setListaParams(listaParams);
+        reqApi(nParam, Number(offset));
+        }}>{loadingBtn ? 'Carregando Infos' : 'Ver mais pokemons'}</S.PokeButton>
+      <S.PokeButton mg="20px 0 0 0" disabled={loadingBtn} onClick={()=>{
+        listaParams.set('order', 'id');
+        setListaParams(listaParams);
+        dispatch({
+          type: 'ORDER_DATA',
+          payload: {
+            order: 'id',
+          }
+        })
+      }}>{loadingBtn ? 'Carregando Infos' : 'Ordernar por nome'}</S.PokeButton>
+      </>    
   )
 }
