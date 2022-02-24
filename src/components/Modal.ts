@@ -5,13 +5,19 @@ type ModalProps = {
 };
 
 export const ModalContainer = styled.div<ModalProps>`
+  ${window.matchMedia("(max-width: 768px)").matches &&
+  `&.active{
+    display: flex !important;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;    
+  }`}
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
   justify-content: center;
   align-items: center;
   & > div {

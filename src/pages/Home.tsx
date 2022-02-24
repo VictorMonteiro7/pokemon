@@ -1,17 +1,26 @@
-import {useContext} from 'react';
+import { useContext} from 'react';
 import { Loading } from "../components/Loading";
 import { useReqData} from '../hooks/useReqData'
 import {Context} from '../contexts/Context'
 import { PokeGrid } from '../components/PokeCard/PokeGrid';
 import * as S from '../components/PokeCard/PokeCardStyle';
+import { PokemonCard } from '../components/PokeCard/PokemonCard';
+import { ModalContainer } from '../components/Modal';
 
 export const Home = ()=>{  
   const {loading, offset, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn} = useReqData();  
-  const {dispatch} = useContext(Context);
+  const {state, dispatch} = useContext(Context);
   if(loading) return <Loading />
+  function fecharModal({target, currentTarget}: any){    
+    if(target === currentTarget){
+      target.classList.remove('active');
+    }
+  }
   return  (
     <>
-    <PokeGrid />
+    <div className="container">
+      <div className="containerLeft">
+      <PokeGrid/>
    <S.PokeButton mg="20px 0 0 0" disabled={loadingBtn} onClick={()=>{
         setLoadingBtn(true);
         let nParam = Number(limit) + 20;
@@ -19,7 +28,7 @@ export const Home = ()=>{
         setListaParams(listaParams);
         reqApi(nParam, Number(offset));
         }}>{loadingBtn ? 'Carregando Infos' : 'Ver mais pokemons'}</S.PokeButton>
-      <S.PokeButton mg="20px 0 0 0" disabled={loadingBtn} onClick={()=>{
+      <S.PokeButton mg="20px 0 0 10px" disabled={loadingBtn} onClick={()=>{
         listaParams.set('order', 'id');
         setListaParams(listaParams);
         dispatch({
@@ -28,7 +37,43 @@ export const Home = ()=>{
             order: 'id',
           }
         })
-      }}>{loadingBtn ? 'Carregando Infos' : 'Ordernar por nome'}</S.PokeButton>
+      }}>{loadingBtn ? 'Carregando Infos' : 'ID Order'}</S.PokeButton>
+      <S.PokeButton mg="20px 10px 0 10px" disabled={loadingBtn} onClick={()=>{
+        listaParams.set('order', 'asc');
+        setListaParams(listaParams);
+        dispatch({
+          type: 'ORDER_DATA',
+          payload: {
+            order: 'asc',
+          }
+        })
+      }}>{loadingBtn ? 'Carregando Infos' : 'ASC Order'}</S.PokeButton>
+      <S.PokeButton mg="20px 0 0 0" disabled={loadingBtn} onClick={()=>{
+        listaParams.set('order', 'desc');
+        setListaParams(listaParams);
+        dispatch({
+          type: 'ORDER_DATA',
+          payload: {
+            order: 'desc',
+          }
+        })
+      }}>{loadingBtn ? 'Carregando Infos' : 'DESC Order'}</S.PokeButton>
+      {/* <List/> */}
+      </div>
+      {state.pokeInfo.id && 
+      <div className="containerRight desktop">
+        <S.SinglePoke>
+          <PokemonCard  hImg='120px' wImg='120px' name={state.pokeInfo.forms && state.pokeInfo.forms[0].name} imgPoke={state.pokeInfo.sprites?.animation || state.pokeInfo.sprites?.front_default} data={state.pokeInfo} />
+        </S.SinglePoke>
+      </div>}      
+      <ModalContainer className="mobile active" bg={`var(--${state.pokeInfo.types && state.pokeInfo.types[0].type.name})`} onClick={fecharModal}>        
+    <S.SinglePoke>
+        <PokemonCard  hImg='120px' wImg='120px' name={state.pokeInfo.forms && state.pokeInfo.forms[0].name} imgPoke={state.pokeInfo.sprites && (state.pokeInfo.sprites.animation || state.pokeInfo.sprites.front_default)} data={state.pokeInfo} />             
+    </S.SinglePoke>
+    </ModalContainer>
+      
+    </div>
+  
       </>    
   )
 }

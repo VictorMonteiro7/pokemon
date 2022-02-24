@@ -3,6 +3,7 @@ import { TypePokemon, TypePokemonTypes} from "../types/MainTypes";
 import {useSearchParams} from 'react-router-dom';
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
+import { useReqPokeType } from "./useReqPokeType";
 
 export const useReqData = () => {
   const [listaParams, setListaParams] = useSearchParams();
@@ -12,8 +13,7 @@ export const useReqData = () => {
   const type = listaParams.get('type');
   const [loading, setLoading] = useState(false);
   const {state, dispatch} = useContext(Context);
-  const [loadingBtn, setLoadingBtn] = useState(false);
-
+  const [loadingBtn, setLoadingBtn] = useState(false);  
   useEffect(()=>{
     setLoading(true)
     if(limit && Number(limit) >= 20) listaParams.set('limit', `${limit}`);

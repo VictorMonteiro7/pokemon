@@ -167,7 +167,9 @@ export const StatusPoke = styled.div<PropsSinglePoke>`
         width: ${({ wBf }) => (wBf ? `${wBf}%` : "0%")};
         height: 100%;
         background: #ff0000;
-        animation: progress ${Math.random() * 3}s forwards;
+        transition: animation 0.5s linear;
+        animation: progress 3s both;
+        animation-delay: 0.3s;
         @keyframes progress {
           from {
             width: 0%;
@@ -183,10 +185,9 @@ export const SinglePoke = styled(PokeGrid)`
   flex-direction: column;
   align-items: center;
   grid-template-columns: unset;
-  max-width: 30%;
   margin: 3rem auto 0 auto;
+  width: 100%;
   & > div {
-    max-width: 300px;
     width: 100%;
     row-gap: 15px;
     padding: 20px 0;

@@ -1,11 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import { Api } from '../api';
-import { PokemonId, TypePokemonTypes } from '../types/MainTypes';
+import { PokeBasicInfo, PokemonId, TypePokemonTypes } from '../types/MainTypes';
 import { Context } from '../contexts/Context';
-export const useReqSinglePoke = () =>{
-  const {id} = useParams();
-  const [data, setData] = useState<PokemonId>();
+type PropsType = {
+  id: string;
+}
+export const useReqSinglePoke = ({id}: PropsType) =>{
+  // const {id} = useParams();
+  const [data, setData] = useState<PokeBasicInfo>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {dispatch} = useContext(Context);
@@ -17,15 +20,14 @@ export const useReqSinglePoke = () =>{
     try{
       setLoading(true)
       const res: PokemonId = await Api.get(`/pokemon/${id}`);    
-      setData(res);
-      const types: TypePokemonTypes = await Api.get(`/type/${res.types[0].type.name}`); 
+      const types: TypePokemonTypes = await Api.get(`/type/${res.types && res.types[0].type.name}`); 
       dispatch({
         type: 'SET_POKE_INFO',
         payload: {
           id: res.id,
           sprites:{
-            front_default: res.sprites.front_default,
-            animation: res.sprites.versions['generation-v']['black-white'].animated.front_default            
+            front_default: res.sprites && res.sprites.front_default,
+            animation: res.sprites && res.sprites.versions['generation-v']['black-white'].animated.front_default     
           },
           forms: res.forms,
           types: res.types,
