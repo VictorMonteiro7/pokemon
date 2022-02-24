@@ -78,6 +78,7 @@ html {
   flex-direction: column;
   align-items: center;
   flex: 1;
+  padding-top: 7rem;
 }
 
 .mobile {
@@ -87,6 +88,9 @@ html {
 @media (max-width: 768px) {
   .desktop {
     display: none !important;
+  }
+  .mobile {
+    display: flex;
   }
   .container {
     flex-direction: column;

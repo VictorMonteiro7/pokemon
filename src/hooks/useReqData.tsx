@@ -49,10 +49,10 @@ export const useReqData = () => {
           stats: res2.stats, 
           typeWaS: types.damage_relations
         }
-        if(state.dataInfo.length === 0){          
-          dispatch({type: 'SET_DATA_INFO', payload: dados  });
-        }
-        if(state.dataInfo.length > 0){
+        // if(state.dataInfo.length === 0){          
+        //   dispatch({type: 'SET_DATA_INFO', payload: dados  });
+        // }
+        if(state.dataInfo.length >= 0){
           const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
           if(!pokeInfo){
             dispatch({type: 'SET_DATA_INFO', payload: dados  });
@@ -85,6 +85,6 @@ export const useReqData = () => {
     offset,  
     loadingBtn,
     setLoadingBtn,
-    maxpPoke
+    maxpPoke,    
   })
 }
