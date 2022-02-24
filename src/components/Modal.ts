@@ -13,9 +13,9 @@ export const ModalContainer = styled.div<ModalProps>`
   height: 100%;
   background-color: rgba(255, 255, 255, 0.8);
   justify-content: center;
-  align-items: center;
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
+  z-index: 9;
   & > div {
     width: 100%;
     max-width: 50%;
@@ -24,6 +24,7 @@ export const ModalContainer = styled.div<ModalProps>`
     }
     & > div {
       max-width: 80%;
+      margin-top: 13rem;
       @media (max-width: 768px) {
         max-width: 100%;
         background: linear-gradient(
