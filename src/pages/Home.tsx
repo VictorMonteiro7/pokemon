@@ -1,4 +1,4 @@
-import { useContext} from 'react';
+import { useContext, useState} from 'react';
 import { Loading } from "../components/Loading";
 import { useReqData} from '../hooks/useReqData'
 import {Context} from '../contexts/Context'
@@ -8,19 +8,20 @@ import { PokemonCard } from '../components/PokeCard/PokemonCard';
 import { ModalContainer } from '../components/Modal';
 
 export const Home = ()=>{  
-  const {loading, offset, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn} = useReqData();  
+  const {loading, offset, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn, maxpPoke} = useReqData();  
   const {state, dispatch} = useContext(Context);
+  const [modalOpen, setModalOpen] = useState(false);
   if(loading) return <Loading />
   function fecharModal({target, currentTarget}: any){    
     if(target === currentTarget){
-      target.classList.remove('active');
+        setModalOpen(false);
     }
   }
   return  (
     <>
     <div className="container">
       <div className="containerLeft">
-      <PokeGrid/>
+      <PokeGrid modalOpen={setModalOpen} maxPoke={maxpPoke} />
    <S.PokeButton mg="20px 0 0 0" disabled={loadingBtn} onClick={()=>{
         setLoadingBtn(true);
         let nParam = Number(limit) + 20;
@@ -66,12 +67,13 @@ export const Home = ()=>{
           <PokemonCard  hImg='120px' wImg='120px' name={state.pokeInfo.forms && state.pokeInfo.forms[0].name} imgPoke={state.pokeInfo.sprites?.animation || state.pokeInfo.sprites?.front_default} data={state.pokeInfo} />
         </S.SinglePoke>
       </div>}      
-      <ModalContainer className="mobile active" bg={`var(--${state.pokeInfo.types && state.pokeInfo.types[0].type.name})`} onClick={fecharModal}>        
-    <S.SinglePoke>
-        <PokemonCard  hImg='120px' wImg='120px' name={state.pokeInfo.forms && state.pokeInfo.forms[0].name} imgPoke={state.pokeInfo.sprites && (state.pokeInfo.sprites.animation || state.pokeInfo.sprites.front_default)} data={state.pokeInfo} />             
-    </S.SinglePoke>
-    </ModalContainer>
-      
+      {modalOpen && 
+        <ModalContainer className="mobile" bg={`var(--${state.pokeInfo.types && state.pokeInfo.types[0].type.name})`} onClick={fecharModal}>        
+        <S.SinglePoke>
+            <PokemonCard  hImg='120px' wImg='120px' name={state.pokeInfo.forms && state.pokeInfo.forms[0].name} imgPoke={state.pokeInfo.sprites && (state.pokeInfo.sprites.animation || state.pokeInfo.sprites.front_default)} data={state.pokeInfo} />             
+        </S.SinglePoke>
+        </ModalContainer>
+      }      
     </div>
   
       </>    

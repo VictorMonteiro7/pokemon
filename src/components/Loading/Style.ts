@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export type PropsPokeballType = {
   wt?: string;
+  wtpb?: string;
   ht?: string;
+  htpb?: string;
   bd?: string;
   an?: boolean;
   sm?: boolean;
@@ -11,14 +13,14 @@ export type PropsPokeballType = {
 
 export const PokeBallWrapper = styled.div<PropsPokeballType>`
   display: ${({ sm }) => (sm ? "inline-flex" : "flex")};
-  flex-direction: column;
+  flex-direction: ${({ sm }) => (sm ? "row" : "column")};
   align-items: center;
+  ${({ sm }) => sm && "justify-content: center;"}
   width: ${({ wt }) => (wt ? wt : "300px")};
   height: ${({ ht }) => (ht ? ht : "300px")};
   position: relative;
-  ${({ mg }) => mg && `margin: ${mg};`}
   & > p {
-    position: absolute;
+    ${({ an }) => an && "position: absolute;"}
     font-size: 1rem;
     text-transform: uppercase;
     color: #000;
@@ -29,8 +31,8 @@ export const PokeBallWrapper = styled.div<PropsPokeballType>`
   }
   & > .pokeBall {
     font-size: 10px;
-    width: inherit;
-    height: inherit;
+    width: ${({ wtpb }) => (wtpb ? wtpb : "300px")};
+    height: ${({ htpb }) => (htpb ? htpb : "300px")};
     border-radius: 50%;
     background: #000;
     position: relative;
@@ -40,6 +42,7 @@ export const PokeBallWrapper = styled.div<PropsPokeballType>`
     justify-content: center;
     overflow: hidden;
     border: 2px solid #000;
+    ${({ mg }) => mg && `margin: ${mg};`}
     ${({ an }) => an && "animation: rotatePokeball 1s infinite;"}
     &::before,
     &::after {
@@ -62,7 +65,7 @@ export const PokeBallWrapper = styled.div<PropsPokeballType>`
       width: 20%;
       height: 20%;
       border-radius: 50%;
-      border: ${({ bd }) => (bd ? `${bd}` : "0.625em solid #000;")}
+      border: ${({ bd }) => (bd ? `${bd}` : "0.625em solid #000")};
       background: #fff;
       z-index: 9;
       position: relative;
@@ -80,16 +83,26 @@ export const PokeBallWrapper = styled.div<PropsPokeballType>`
     }
   }
   @media (max-width: 768px) {
-    width: ${({ wt }) => (wt ? wt : "200px")};
-    height: ${({ ht }) => (ht ? ht : "200px")};
+    width: 100%;
+    height: ${({ sm }) => (sm ? "24px" : "200px")};
     margin: 0 auto;
+    & .pokeball {
+      width: ${({ sm }) => (sm ? "24px" : "200px")};
+      height: ${({ sm }) => (sm ? "24px" : "200px")};
+    }
   }
   @media (max-width: 576px) {
-    width: ${({ wt }) => (wt ? wt : "150px")};
-    height: ${({ ht }) => (ht ? ht : "150px")};
+    height: ${({ sm }) => (sm ? "24px" : "150px")};
+    & .pokeBall {
+      width: ${({ sm }) => (sm ? "24px" : "150px")};
+      height: ${({ sm }) => (sm ? "24px" : "150px")};
+    }
   }
   @media (max-width: 480px) {
-    width: ${({ wt }) => (wt ? wt : "100px")};
-    height: ${({ ht }) => (ht ? ht : "100px")};
+    height: ${({ sm }) => (sm ? "24px" : "100px")};
+    & .pokeBall {
+      width: ${({ sm }) => (sm ? "24px" : "100px")};
+      height: ${({ sm }) => (sm ? "24px" : "100px")};
+    }
   }
 `;

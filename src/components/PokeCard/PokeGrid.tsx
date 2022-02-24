@@ -1,11 +1,17 @@
-import {useContext, useState} from 'react'
+import {Dispatch, SetStateAction, useContext, useState} from 'react'
 import {Context} from '../../contexts/Context'
 import { PokemonCard } from './PokemonCard';
 import * as S from './PokeCardStyle'
 import { Api } from '../../api';
 import { PokemonId, TypePokemonTypes } from '../../types/MainTypes';
+import { Pokeball } from '../Loading/Pokeball';
 
-export const PokeGrid = ()=>{
+type PropsType = {
+  modalOpen: Dispatch<SetStateAction<boolean>>,
+  maxPoke: number;
+}
+
+export const PokeGrid = (props: PropsType)=>{
   const {state, dispatch} = useContext(Context);
   const [loading, setLoading] = useState(false);
   async function goToPokemon(name: string | undefined){    
@@ -38,6 +44,7 @@ export const PokeGrid = ()=>{
     }     
   return (
     <>
+    <Pokeball sm={true} mg="0 5px 0 0" wtpb="24px" htpb="24px" wt='100%' ht='24px' bd='0.5px solid #000'>{props.maxPoke.toString()} pokemons existentes.</Pokeball>
     <S.PokeGrid maxH='80vh'>
     {state.dataInfo.map((item, index)=>{                
       const name = item.forms && item.forms[0].name;
@@ -46,8 +53,9 @@ export const PokeGrid = ()=>{
           <a key={index} href={name} onClick={(e)=>{
             e.preventDefault();
             goToPokemon(name)
-            const mobile = document.querySelector('.mobile');
-            mobile && mobile.classList.add('active');
+            if(window.matchMedia('(max-width: 768px)').matches){
+              props.modalOpen(true)
+            }                        
           }}>
             <PokemonCard type={item.types && item.types[0].type.name} imgPoke={image} url={name} name={name} />
           </a>

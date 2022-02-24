@@ -3,7 +3,6 @@ import { TypePokemon, TypePokemonTypes} from "../types/MainTypes";
 import {useSearchParams} from 'react-router-dom';
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
-import { useReqPokeType } from "./useReqPokeType";
 
 export const useReqData = () => {
   const [listaParams, setListaParams] = useSearchParams();
@@ -13,7 +12,8 @@ export const useReqData = () => {
   const type = listaParams.get('type');
   const [loading, setLoading] = useState(false);
   const {state, dispatch} = useContext(Context);
-  const [loadingBtn, setLoadingBtn] = useState(false);  
+  const [loadingBtn, setLoadingBtn] = useState(false); 
+  const [maxpPoke, setMaxPoke] = useState(0); 
   useEffect(()=>{
     setLoading(true)
     if(limit && Number(limit) >= 20) listaParams.set('limit', `${limit}`);
@@ -25,14 +25,15 @@ export const useReqData = () => {
     reqApi(Number(limit), Number(offset));   
   },[])
   const reqApi = async (limitParam?: number, offsetParam?: number)=>{
-    let res;
+    let res;    
     if((limitParam && limitParam >= 20) && offsetParam){
       res = await Api.get(`/pokemon?limit=${limitParam}&offset=${offsetParam}`);
     } else if (limitParam && limitParam >= 20){      
       res = await Api.get(`/pokemon?limit=${limitParam}`);      
     } else {
       res = await Api.get(`/pokemon`);
-    }
+    }    
+    setMaxPoke(res.count);
     res.results.forEach(async (item: TypePokemon)=>{       
       const res2 = await Api.get(`/pokemon/${item.name}`)
       const types: TypePokemonTypes = await Api.get(`/type/${res2.types[0].type.name}`);       
@@ -83,6 +84,7 @@ export const useReqData = () => {
     limit,
     offset,  
     loadingBtn,
-    setLoadingBtn
+    setLoadingBtn,
+    maxpPoke
   })
 }
