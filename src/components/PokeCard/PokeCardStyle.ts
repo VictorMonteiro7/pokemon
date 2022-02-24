@@ -187,6 +187,8 @@ export const SinglePoke = styled(PokeGrid)`
   grid-template-columns: unset;
   margin: 3rem auto 0 auto;
   width: 100%;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
   & > div {
     width: 100%;
     row-gap: 15px;

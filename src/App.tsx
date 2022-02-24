@@ -7,7 +7,7 @@ function App() {
     <>
       <h1>Seja bem vindo ao Universo dos Pokemons</h1>
       <MainRoutes />          
-      <footer style={{position: 'fixed', bottom: '0', left: '0'}}>
+      <footer style={{marginTop: '20px'}}>
         <p>&copy;Victor Monteiro - Alguns direitos reservados.</p>
       </footer>
     </>
