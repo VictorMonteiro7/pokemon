@@ -26,7 +26,7 @@ export const useReqData = () => {
   },[])
   const reqApi = async (limitParam?: number, offsetParam?: number)=>{
     let res;    
-    if((limitParam && limitParam >= 20) && offsetParam){
+    if((limitParam && limitParam >= 20 && limitParam <= 1126) && offsetParam){
       res = await Api.get(`/pokemon?limit=${limitParam}&offset=${offsetParam}`);
     } else if (limitParam && limitParam >= 20){      
       res = await Api.get(`/pokemon?limit=${limitParam}`);      

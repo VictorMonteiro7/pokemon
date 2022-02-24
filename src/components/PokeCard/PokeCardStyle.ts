@@ -128,6 +128,9 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
   }
   @media (max-width: 768px) {
     grid-template-columns: repeat(3, minmax(100px, 1fr));
+    width: 80%;
+    margin: 0 auto;
+    height: 50vh;
   }
   @media (max-width: 576px) {
     grid-template-columns: repeat(3, minmax(100px, 30%));

@@ -73,6 +73,13 @@ html {
 .container {
   display: flex;
 }
+.containerLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+
 .container .containerRight {
   display: flex;
   flex-direction: column;
