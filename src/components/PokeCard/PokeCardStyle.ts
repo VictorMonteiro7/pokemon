@@ -192,6 +192,9 @@ export const SinglePoke = styled(PokeGrid)`
   width: 100%;
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
+  &::webkit-scrollbar-track {
+    background: blue;
+  }
   & > div {
     width: 100%;
     row-gap: 15px;
