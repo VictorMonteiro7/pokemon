@@ -211,6 +211,9 @@ export const SinglePoke = styled(PokeGrid)`
         padding: 3px;
         border: 0.5px solid;
       }
+      & p:nth-child(3n + 0) {
+        grid-column: 1/3;
+      }
     }
     & .status {
       width: 75%;
