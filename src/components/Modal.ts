@@ -32,6 +32,10 @@ export const ModalContainer = styled.div<ModalProps>`
           ${({ bg }) => (bg ? bg : "var(--ice)")} 23%,
           #fefefe 23%
         );
+        & > img {
+          width: 60px;
+          height: 60px;
+        }
       }
     }
   }
