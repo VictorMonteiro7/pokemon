@@ -1,11 +1,13 @@
 import { createContext, useReducer } from "react";
 import { PokeBasicInfo } from "../types/MainTypes";
-import {PokeInitialState, PokeReducer, PokeDataReducer, DataInitialState} from '../reducers/PokeReducer';
+import {PokeInitialState, PokeReducer, PokeDataReducer, DataInitialState, MaxPokeInitialState, MaxPokemonReducer, MaxPokeType, CountReducer} from '../reducers/PokeReducer';
 import { ActionReducerType } from "../types/ActionReducerType";
 
 type initialStateType = {
   pokeInfo: PokeBasicInfo;
   dataInfo: PokeBasicInfo[];
+  maxPoke: MaxPokeType;
+  count: {n: number};
 }
 type contextType = {
   state: initialStateType;
@@ -14,7 +16,9 @@ type contextType = {
 
 const initialState = {
     pokeInfo: PokeInitialState,
-    dataInfo: DataInitialState
+    dataInfo: DataInitialState,
+    maxPoke: MaxPokeInitialState,
+    count:  {n: 0}
 }
 
 export const Context = createContext<contextType>({
@@ -24,7 +28,9 @@ export const Context = createContext<contextType>({
 
 const mainReducer = (state: initialStateType , action: ActionReducerType) => ({
   pokeInfo: PokeReducer(state.pokeInfo, action),
-  dataInfo: PokeDataReducer(state.dataInfo, action)
+  dataInfo: PokeDataReducer(state.dataInfo, action),
+  maxPoke: MaxPokemonReducer(state.maxPoke, action),
+  count: CountReducer(state.count, action)
 })
 
 export const ContextProvider: React.FC = ({ children }) => {

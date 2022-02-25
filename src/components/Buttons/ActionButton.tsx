@@ -10,12 +10,9 @@ type PropsButtonType = {
 }
 
 export const ActionButton = (props: PropsButtonType)=> {
-  const [listaParams, setListaParams] = useSearchParams();
   const {dispatch} = useContext(Context);
   return (
 <S.PokeButton mg={props.mg} disabled={props.loadingBtn} onClick={()=>{
-        listaParams.set('order', `${props.order}`);
-        setListaParams(listaParams);
         dispatch({
           type: 'ORDER_DATA',
           payload: {

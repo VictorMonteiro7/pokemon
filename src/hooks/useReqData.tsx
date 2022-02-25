@@ -4,7 +4,7 @@ import {useSearchParams} from 'react-router-dom';
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
 
-export const useReqData = () => {
+const useReqData = () => {
   const [listaParams, setListaParams] = useSearchParams();
   const limit = listaParams.get('limit');
   const offset = listaParams.get('offset');
@@ -13,18 +13,9 @@ export const useReqData = () => {
   const [loading, setLoading] = useState(false);
   const {state, dispatch} = useContext(Context);
   const [loadingBtn, setLoadingBtn] = useState(false); 
-  const [maxpPoke, setMaxPoke] = useState(0); 
-  useEffect(()=>{
-    setLoading(true)
-    if(limit && Number(limit) >= 20) listaParams.set('limit', `${limit}`);
-    else listaParams.set('limit', `20`);
-    if(offset) listaParams.set('offset', `${offset}`);
-    if(order) listaParams.set('order', `${order}`);
-    if(type) listaParams.set('type', `${type}`);
-    setListaParams(listaParams);
-    reqApi(Number(limit), Number(offset));   
-  },[])
-  const reqApi = async (limitParam?: number, offsetParam?: number)=>{
+  const [count, setCount] = useState(0); 
+
+  const reqApi = async (limitParam?: number, offsetParam?: number)=>{    
     let res;    
     if((limitParam && limitParam >= 20 && limitParam <= 1126) && offsetParam){
       res = await Api.get(`/pokemon?limit=${limitParam}&offset=${offsetParam}`);
@@ -33,7 +24,18 @@ export const useReqData = () => {
     } else {
       res = await Api.get(`/pokemon`);
     }    
-    setMaxPoke(res.count);
+    dispatch({
+      type: 'SET_MAX_POKE',
+      payload: {
+        maxPoke: res.count
+      }
+    })
+    dispatch({
+      type: 'SET_COUNT',
+      payload: {
+        n: res.count
+      }
+    })
     res.results.forEach(async (item: TypePokemon)=>{       
       const res2 = await Api.get(`/pokemon/${item.name}`)
       const types: TypePokemonTypes = await Api.get(`/type/${res2.types[0].type.name}`);       
@@ -52,13 +54,6 @@ export const useReqData = () => {
         // if(state.dataInfo.length === 0){          
         //   dispatch({type: 'SET_DATA_INFO', payload: dados  });
         // }
-        if(state.dataInfo.length >= 0){
-          const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
-          if(!pokeInfo){
-            dispatch({type: 'SET_DATA_INFO', payload: dados  });
-          }
-          setLoadingBtn(false)
-        }
         if(order || type){
           const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
           if(!pokeInfo){
@@ -71,6 +66,13 @@ export const useReqData = () => {
             })
           }
           setLoading(false)
+        }
+        if(state.dataInfo.length >= 0){
+          const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
+          if(!pokeInfo){
+            dispatch({type: 'SET_DATA_INFO', payload: dados  });
+          }
+          setLoadingBtn(false)
         }
       })        
     setLoading(false)
@@ -85,6 +87,10 @@ export const useReqData = () => {
     offset,  
     loadingBtn,
     setLoadingBtn,
-    maxpPoke,    
+    count,    
+    order,
+    type
   })
 }
+
+export default useReqData;

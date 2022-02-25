@@ -9,6 +9,7 @@ export type PropsPokeballType = {
   an?: boolean;
   sm?: boolean;
   mg?: string;
+  loading?: boolean;
 };
 
 export const PokeBallWrapper = styled.div<PropsPokeballType>`
@@ -16,8 +17,9 @@ export const PokeBallWrapper = styled.div<PropsPokeballType>`
   flex-direction: ${({ sm }) => (sm ? "row" : "column")};
   align-items: center;
   ${({ sm }) => sm && "justify-content: center;"}
-  width: ${({ wt }) => (wt ? wt : "300px")};
-  height: ${({ ht }) => (ht ? ht : "300px")};
+  ${({ loading }) => loading && "width: 100%; height: 100%;"}
+  ${({ wt }) => (wt ? `width: ${wt}` : "300px")};
+  ${({ ht }) => (ht ? `height: ${ht}` : "300px")};
   position: relative;
   & > p {
     ${({ an }) => an && "position: absolute;"}

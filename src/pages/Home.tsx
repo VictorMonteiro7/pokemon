@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState} from 'react';
 import { Loading } from "../components/Loading";
-import { useReqData} from '../hooks/useReqData'
+import useReqData from '../hooks/useReqData'
 import {Context} from '../contexts/Context'
 import { PokeGrid } from '../components/PokeCard/PokeGrid';
 import * as S from '../components/PokeCard/PokeCardStyle';
@@ -9,9 +9,10 @@ import { ModalContainer } from '../components/Modal';
 import { ActionButton } from '../components/Buttons/ActionButton';
 import { Search } from '../components/Search';
 import {ButtonArea} from '../components/Buttons/StyleButtons'
+import { List } from '../components/List';
 
 export const Home = ()=>{  
-  const {loading, offset, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn, maxpPoke} = useReqData();
+  const {loading, offset, order, type, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn} = useReqData();
   const {state} = useContext(Context);
   const [modalOpen, setModalOpen] = useState(false);
   const [showPoke, setShowPoke] = useState(false);
@@ -24,6 +25,20 @@ export const Home = ()=>{
     }
   },[state.pokeInfo.id])
 
+  useEffect(()=>{
+    if(!(type && (order && order === 'type'))){
+      if(limit && Number(limit) >= 20) listaParams.set('limit', `${limit}`);
+      else listaParams.set('limit', `20`);
+      if(offset) listaParams.set('offset', `${offset}`);
+      listaParams.set('order', 'id');
+      setListaParams(listaParams);
+    } else {
+      if(order) listaParams.set('order', `${order}`);
+      if(type) listaParams.set('type', `${type}`);
+      setListaParams(listaParams);
+    }
+  },[])
+
 
   if(loading) return <Loading />
   function fecharModal({target, currentTarget}: any){    
@@ -35,6 +50,7 @@ export const Home = ()=>{
     <>
     <div className="container">
       <div className="containerLeft">
+      <List/>
     <ButtonArea>
     <S.PokeButton disabled={loadingBtn} onClick={()=>{
         setLoadingBtn(true);
@@ -48,8 +64,7 @@ export const Home = ()=>{
     <ActionButton loadingBtn={loadingBtn} order='desc'>DESC Order</ActionButton>
     </ButtonArea>
       <div className='mobile'><Search setModal={setModalOpen}/></div>      
-      <PokeGrid modalOpen={setModalOpen} maxPoke={maxpPoke} />
-      {/* <List/> */}
+      <PokeGrid modalOpen={setModalOpen} maxPoke={Number(state.maxPoke.maxPoke)} />
       </div>
       <div className="containerRight desktop">
       <Search/>
@@ -67,7 +82,6 @@ export const Home = ()=>{
         </ModalContainer>
       }      
     </div>
-  
       </>    
   )
 }

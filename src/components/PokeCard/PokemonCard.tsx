@@ -22,7 +22,7 @@ export const PokemonCard = (props: PropsType)=>{
   return (
     <div>
       <h3>{props.name} {props.data?.id && <span>#{props.data.id}</span>}</h3>
-      <S.PokeImgStyle w={props.wImg} h={props.hImg} className="skeleton" onLoad={loadImg} src={props.imgPoke} alt={props.name} />          
+      <S.PokeImgStyle w={props.wImg} h={props.hImg} className="skeleton" onLoad={loadImg} src={props.imgPoke} alt={props.name} />      
       {props.type && <p className={`type ${props.type}`}>{props.type}</p>}
       {props.data && <>
         <div className="types">

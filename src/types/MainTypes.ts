@@ -73,7 +73,7 @@ export type PokemonId = {
     versions: {
       [key: string]: {
         [key: string]: {
-          animated: TypeSprites;
+          [key: string]: TypeSprites;
         };
       };
     };

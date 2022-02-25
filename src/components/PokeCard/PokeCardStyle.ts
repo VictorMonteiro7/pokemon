@@ -26,7 +26,10 @@ export const PokeImgStyle = styled.img<ImgProps>`
 export const PokeGrid = styled.div<PropsSinglePoke>`
   max-width: 680px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(100px, 150px));
+  ${({ load }) =>
+    load && "width: 50vw; padding: 3rem 0; justify-content: center;"}
+  grid-template-columns: ${({ load }) =>
+    load ? "1fr" : "repeat(4, minmax(100px, 150px))"};
   grid-gap: 20px;
   ${({ maxH }) => maxH && `max-height: ${maxH};`}
   ${({ maxH }) => maxH && `overflow-y: scroll;`}
@@ -131,6 +134,16 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     width: 80%;
     margin: 0 auto;
     height: 50vh;
+    ${({ load }) =>
+      load &&
+      `
+      grid-template-columns: 1fr !important;
+      width: 100%;
+      & > div {
+        height: 100%;
+        width: 100%;
+      }
+    `}
   }
   @media (max-width: 576px) {
     grid-template-columns: repeat(3, minmax(100px, 30%));
@@ -144,6 +157,7 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
 type PropsSinglePoke = {
   wBf?: string;
   maxH?: string;
+  load?: boolean;
 };
 
 export const StatusPoke = styled.div<PropsSinglePoke>`
