@@ -7,7 +7,7 @@ type PropsType = {
   imgPoke?: any;
   name?: string;
   data?: PokeBasicInfo;
-  type?: string;
+  type?: string[];
   wImg?: string;
   hImg?: string;
   sm?: boolean;
@@ -18,12 +18,11 @@ export const PokemonCard = (props: PropsType)=>{
   function loadImg({target}:ChangeEvent<HTMLImageElement>){
     target.classList.remove('skeleton')
   }
-  
   return (
     <div>
       <h3>{props.name} {props.data?.id && <span>#{props.data.id}</span>}</h3>
       <S.PokeImgStyle w={props.wImg} h={props.hImg} className="skeleton" onLoad={loadImg} src={props.imgPoke} alt={props.name} />      
-      {props.type && <p className={`type ${props.type}`}>{props.type}</p>}
+      <div className="type">{props.type && props.type.map(item=><p key={item} className={`type ${item}`}>{item}</p>)}</div>
       {props.data && <>
         <div className="types">
         {props.data.types && props.data.types.length > 1 ? props.data.types.map((item:any)=>{

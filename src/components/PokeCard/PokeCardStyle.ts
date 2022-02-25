@@ -37,6 +37,12 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     text-decoration: none;
     color: #0e0e0e;
   }
+  & div.type {
+    display: flex;
+    justify-content: center;
+    column-gap: 2px;
+    flex-wrap: wrap;
+  }
   & > div,
   & > a > div {
     display: flex;

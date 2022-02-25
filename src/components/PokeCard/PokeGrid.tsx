@@ -25,6 +25,7 @@ export const PokeGrid = (props: PropsType)=>{
     {state.dataInfo.map((item, index)=>{             
       const name = item.forms && item.forms[0].name;
       const image = item.sprites && (item.sprites.animation || item.sprites.front_default);
+      const tipos = item.types && item.types.map(item=>item.type.name);
         return (
           <a key={index} href={name} onClick={(e)=>{
             e.preventDefault();
@@ -34,7 +35,8 @@ export const PokeGrid = (props: PropsType)=>{
               props.modalOpen(true)
             }                        
           }}>
-            <PokemonCard type={item.types && item.types[0].type.name} imgPoke={image} url={name} name={name} />
+
+            <PokemonCard type={tipos} imgPoke={image} url={name} name={name} />
           </a>
         )
       })}  

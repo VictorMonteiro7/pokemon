@@ -16,6 +16,11 @@ export const ModalContainer = styled.div<ModalProps>`
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
   z-index: 9;
+
+  & div.type {
+    display: none;
+  }
+
   & > div {
     width: 100%;
     max-width: 50%;
