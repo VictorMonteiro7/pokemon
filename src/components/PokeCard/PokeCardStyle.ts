@@ -33,6 +33,11 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
   grid-gap: 20px;
   ${({ maxH }) => maxH && `max-height: ${maxH};`}
   ${({ maxH }) => maxH && `overflow-y: scroll;`}
+  & .imgArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   & > a {
     text-decoration: none;
     color: #0e0e0e;
@@ -167,37 +172,38 @@ type PropsSinglePoke = {
 };
 
 export const StatusPoke = styled.div<PropsSinglePoke>`
+  max-width: 500px;
   width: 100%;
-  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
   & p {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: inline-flex;
     text-transform: uppercase;
-    & span {
-      max-width: 230px;
-      width: 100%;
-      background-color: #ccc;
-      border-radius: 5px;
-      position: relative;
-      height: 15px;
-      overflow: hidden;
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: ${({ wBf }) => (wBf ? `${+wBf}px` : "0%")};
-        height: 100%;
-        background: #ff0000;
-        transition: animation 0.5s linear;
-        animation: progress 3s both;
-        animation-delay: 0.3s;
-        @keyframes progress {
-          from {
-            width: 0%;
-          }
+  }
+  & > div {
+    max-width: 256px;
+    width: 100%;
+    background-color: #ccc;
+    border-radius: 5px;
+    position: relative;
+    height: 7px;
+    overflow: hidden;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: ${({ wBf }) => (wBf ? `${+wBf}px` : "0%")};
+      height: 100%;
+      background: #ff0000;
+      transition: animation 0.5s linear;
+      animation: progress 3s both;
+      animation-delay: 0.3s;
+      @keyframes progress {
+        from {
+          width: 0%;
         }
       }
     }

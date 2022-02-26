@@ -21,22 +21,21 @@ export const PokemonCard = (props: PropsType)=>{
   return (
     <div>
       <h3>{props.name} {props.data?.id && <span>#{props.data.id}</span>}</h3>
+      <div className="imgArea">
       <S.PokeImgStyle w={props.wImg} h={props.hImg} className="skeleton" onLoad={loadImg} src={props.imgPoke} alt={props.name} />      
       <div className="type">{props.type && props.type.map(item=><p key={item} className={`type ${item}`}>{item}</p>)}</div>
+      </div>
       {props.data && <>
         <div className="types">
-        {props.data.types && props.data.types.length > 1 ? props.data.types.map((item:any)=>{
-          return <p className={`type ${item.type.name}`} key={item.type.name}
-          >{item.type.name}</p>
-        }) : <p className={`type ${props.data.types && props.data.types[0].type.name}`}>{props.data.types && props.data.types[0].type.name}</p>}
+        {props.data.types && props.data.types.map((item, index)=><p key={index} className={`type ${item.type.name}`}>{item.type.name}</p>)}
         </div>
         <div className="status">
           {props.data.stats && props.data.stats.map((stat:any)=>{
             return <S.StatusPoke key={stat.stat.name} wBf={stat.base_stat}>
-              <p>{stat.stat.name.replace('-', ' ')}
-              <span aria-label={stat.base_stat}>
-              </span>
+              <p>{stat.stat.name.replace('-', ' ').replace('special', 'sp.')}
               </p>
+              <div aria-label={stat.base_stat}>
+              </div>
               </S.StatusPoke>
             })
           }
