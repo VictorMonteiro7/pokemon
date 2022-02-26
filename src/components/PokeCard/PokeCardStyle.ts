@@ -187,7 +187,7 @@ export const StatusPoke = styled.div<PropsSinglePoke>`
         position: absolute;
         top: 0;
         left: 0;
-        width: ${({ wBf }) => (wBf ? `${wBf}%` : "0%")};
+        width: ${({ wBf }) => (wBf ? `${+wBf}%` : "0%")};
         height: 100%;
         background: #ff0000;
         transition: animation 0.5s linear;
