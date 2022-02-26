@@ -50,6 +50,7 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
   }
   & > div,
   & > a > div {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,8 +70,9 @@ export const PokeGrid = styled.div<PropsSinglePoke>`
     & h3,
     & > div > h3 {
       text-transform: capitalize;
-      color: #fefefe;
-      text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+      color: #0e0e0e;
+      font-size: 1rem;
+      text-align: center;
     }
     &:hover {
       box-shadow: 0px 12px 40px -5px rgb(90 96 100 / 30%);
