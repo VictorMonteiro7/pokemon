@@ -51,7 +51,8 @@ export const Home = ()=>{
     <div className="container">
       <div className="containerLeft">
       <List/>
-    <ButtonArea>
+    <ButtonArea hasType={!!type}>
+    {!type && 
     <S.PokeButton disabled={loadingBtn} onClick={()=>{
         setLoadingBtn(true);
         let nParam = Number(limit) + 20;
@@ -59,6 +60,7 @@ export const Home = ()=>{
         setListaParams(listaParams);
         reqApi(nParam, Number(offset));
         }}>{loadingBtn ? 'Carregando Infos' : 'Ver mais pokemons'}</S.PokeButton>
+    }
     <ActionButton loadingBtn={loadingBtn} order='id'>ID Order</ActionButton>
     <ActionButton  loadingBtn={loadingBtn} order='asc'>ASC Order</ActionButton>
     <ActionButton loadingBtn={loadingBtn} order='desc'>DESC Order</ActionButton>

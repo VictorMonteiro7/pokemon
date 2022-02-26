@@ -176,6 +176,7 @@ export const StatusPoke = styled.div<PropsSinglePoke>`
     align-items: center;
     text-transform: uppercase;
     & span {
+      max-width: 230px;
       width: 100%;
       background-color: #ccc;
       border-radius: 5px;
@@ -187,7 +188,7 @@ export const StatusPoke = styled.div<PropsSinglePoke>`
         position: absolute;
         top: 0;
         left: 0;
-        width: ${({ wBf }) => (wBf ? `${wBf}px` : "0%")};
+        width: ${({ wBf }) => (wBf ? `${+wBf}px` : "0%")};
         height: 100%;
         background: #ff0000;
         transition: animation 0.5s linear;
@@ -239,7 +240,7 @@ export const SinglePoke = styled(PokeGrid)`
       }
     }
     & .status {
-      width: 75%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;

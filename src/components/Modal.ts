@@ -18,7 +18,7 @@ export const ModalContainer = styled.div<ModalProps>`
   z-index: 9;
 
   & div.type {
-    display: none;
+    display: none !important;
   }
 
   & > div {

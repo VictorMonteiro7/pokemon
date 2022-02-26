@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGetPokeTypes from "../../hooks/useGetPokeTypes";
 import useReqData from "../../hooks/useReqData";
@@ -6,7 +6,7 @@ import { ListStyle } from "./Style";
 
 export const List = ()=>{
   const {reqApi} = useReqData();
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const {liValue, paraValue, setParamValue, getTypes, types, setTypePoke, setLiValue} = useGetPokeTypes();
   useEffect(()=>{    
     paraValue.delete('limit');
@@ -29,15 +29,18 @@ export const List = ()=>{
     if(types.length < 1)
     getTypes();
   },[])
-
-  const handleChangeOption = (e: ChangeEvent<HTMLSelectElement>)=>{
-    setLiValue(e.target.value);
+  
+  const handleChangeOption = (e: any)=>{
+    setLiValue(e.target.dataset.value);
+    setOpen(false)
   }
   return (
-    <ListStyle onChange={handleChangeOption} value={liValue}>
-      <option disabled value="">Selecione um tipo</option>
-      <option value="all">Todos</option>
-      {types.map(((e: string, index: any)=> <option key={index} value={e}>{e}</option>))}
+    <ListStyle>
+      <li onClick={()=>setOpen(!open)}>Selecione um tipo</li>
+      {open && <ul>
+      <li onClick={handleChangeOption} data-value='all'>Todos</li>
+      {types.map(((e: string, index: any)=> <li onClick={handleChangeOption} data-value={e} key={index}>{e}</li>))}
+      </ul> }
     </ListStyle>
   )
 }
