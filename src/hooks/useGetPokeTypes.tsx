@@ -13,7 +13,7 @@ const useGetPokeTypes = ()=>{
   async function getTypes(){
     const res = await Api.get('/type');
     let arr: any[] = [];
-    res.results.map((e: any)=> {
+    res.results.forEach((e: any)=> {
       if(e.name !== 'unknown' && e.name !== 'shadow')
         arr = [...arr, e.name]
     });

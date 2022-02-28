@@ -1,5 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useState } from "react";
 import useGetPokeTypes from "../../hooks/useGetPokeTypes";
 import useReqData from "../../hooks/useReqData";
 import { ListStyle } from "./Style";

@@ -20,6 +20,17 @@ export const ListStyle = styled.ul`
   position: relative;
   list-stile: none;
   transition: all 0.3s ease-in-out;
+  &:hover:after {
+    transform: rotate(90deg) translate(5px, 5px);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    border: 10px solid;
+    border-color: transparent transparent transparent #0e0e0e;
+    right: 0;
+    transition: all 0.3s ease-in-out;
+  }
   & > li {
     cursor: pointer;
     width: 100%;

@@ -61,9 +61,9 @@ export const Home = ()=>{
         reqApi(nParam, Number(offset));
         }}>{loadingBtn ? 'Carregando Infos' : 'Ver mais pokemons'}</S.PokeButton>
     }
-    <ActionButton loadingBtn={loadingBtn} order='id'>ID Order</ActionButton>
-    <ActionButton  loadingBtn={loadingBtn} order='asc'>ASC Order</ActionButton>
-    <ActionButton loadingBtn={loadingBtn} order='desc'>DESC Order</ActionButton>
+    <ActionButton loadingBtn={loadingBtn} order='id'>ID</ActionButton>
+    <ActionButton  loadingBtn={loadingBtn} order='asc'>A - Z</ActionButton>
+    <ActionButton loadingBtn={loadingBtn} order='desc'>Z - A</ActionButton>
     </ButtonArea>
       <div className='mobile'><Search setModal={setModalOpen}/></div>      
       <PokeGrid modalOpen={setModalOpen} maxPoke={Number(state.maxPoke.maxPoke)} />

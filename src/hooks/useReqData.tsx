@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState,  useContext } from "react";
 import { TypePokemon, TypePokemonTypes} from "../types/MainTypes";
 import {useSearchParams} from 'react-router-dom';
 import { Api } from "../api";
@@ -13,7 +13,6 @@ const useReqData = () => {
   const [loading, setLoading] = useState(false);
   const {state, dispatch} = useContext(Context);
   const [loadingBtn, setLoadingBtn] = useState(false); 
-  const [count, setCount] = useState(0); 
 
   const reqApi = async (limitParam?: number, offsetParam?: number)=>{    
     let res;    
@@ -51,9 +50,6 @@ const useReqData = () => {
           stats: res2.stats, 
           typeWaS: types.damage_relations
         }
-        // if(state.dataInfo.length === 0){          
-        //   dispatch({type: 'SET_DATA_INFO', payload: dados  });
-        // }
         if(order || type){
           const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
           if(!pokeInfo){
@@ -86,8 +82,7 @@ const useReqData = () => {
     limit,
     offset,  
     loadingBtn,
-    setLoadingBtn,
-    count,    
+    setLoadingBtn,   
     order,
     type
   })
