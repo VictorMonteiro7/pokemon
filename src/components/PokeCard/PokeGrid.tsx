@@ -27,7 +27,7 @@ export const PokeGrid = (props: PropsType)=>{
       const image = item.sprites && (item.sprites.animation || item.sprites.front_default);
       const tipos = item.types && item.types.map(item=>item.type.name);
         return (
-          <a key={index} href={`/`} onClick={(e)=>{
+          <a key={index} href={`/pokemon/${name}`} onClick={(e)=>{
             e.preventDefault();
             GoToPokemon(name)
             if(window.matchMedia('(max-width: 768px)').matches){
