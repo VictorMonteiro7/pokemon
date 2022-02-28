@@ -1,27 +1,16 @@
 import {useEffect, useState } from "react";
 import useGetPokeTypes from "../../hooks/useGetPokeTypes";
-import useReqData from "../../hooks/useReqData";
 import { ListStyle } from "./Style";
 
 export const List = ()=>{
-  const {reqApi} = useReqData();
   const [open, setOpen] = useState(false);
   const {liValue, paraValue, setParamValue, getTypes, types, setTypePoke, setLiValue} = useGetPokeTypes();
-  useEffect(()=>{    
+  useEffect(()=>{
     paraValue.delete('limit');
-    if(((liValue !== 'all' || '' || null || undefined) && liValue.length > 0)){
-      paraValue.set('order', 'type');
-      paraValue.set('type', liValue);
-      setParamValue(paraValue)
-      setTypePoke(liValue);
-    } else {
-      paraValue.delete('type');
-      paraValue.delete('order');
-      paraValue.set('limit', '20');
-      paraValue.set('order', 'id')
-      setParamValue(paraValue)
-      reqApi();
-    }
+    paraValue.set('order', 'type');
+    paraValue.set('type', liValue);
+    setParamValue(paraValue);
+    setTypePoke(liValue);
   },[liValue])
 
   useEffect(()=>{
