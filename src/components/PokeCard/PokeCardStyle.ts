@@ -257,7 +257,7 @@ export const SinglePoke = styled(PokeGrid)`
       display: flex;
       list-style: none;
       position: relative;
-      width: 120px;
+      width: 100%;
       &:hover li:not(:first-child) {
         opacity: 1;
         pointer-events: initial;
