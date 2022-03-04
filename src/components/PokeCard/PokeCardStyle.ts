@@ -221,6 +221,23 @@ export const SinglePoke = styled(PokeGrid)`
   width: 100%;
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
+  & .conj {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    gap: 10px;
+    @media (max-width: 768px) {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      row-gap: 10px;
+      position: unset;
+      justify-content: space-evenly;
+    }
+  }
   &::webkit-scrollbar-track {
     background: blue;
   }
@@ -228,23 +245,57 @@ export const SinglePoke = styled(PokeGrid)`
     width: 100%;
     row-gap: 15px;
     padding: 20px 0;
+    @media (max-width: 768px) {
+      padding-bottom: 120px;
+    }
     & .types {
       display: flex;
       justify-content: center;
       column-gap: 5px;
     }
     & .abilities {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 5px;
-      & p {
+      display: flex;
+      list-style: none;
+      position: relative;
+      width: 120px;
+      &:hover li:not(:first-child) {
+        opacity: 1;
+        pointer-events: initial;
+        z-index: 9999;
+        width: 120%;
+      }
+      &:hover li:first-child.more::after {
+        border-color: #fefefe transparent transparent transparent;
+      }
+      & li {
         text-transform: capitalize;
         text-align: center;
         padding: 3px;
-        border: 0.5px solid;
+        width: 100%;
+        background: var(--fire);
+        color: #fefefe;
+        word-break: break-word;
       }
-      & p:nth-child(3n + 0) {
-        grid-column: 1/3;
+      & li:first-child {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      & li:first-child.more::after {
+        content: "";
+        border: 5px solid;
+        border-color: transparent transparent transparent #fefefe;
+        display: inline-block;
+        margin-left: 3px;
+        transition: border-color 0.2s linear;
+      }
+      & li:not(:first-child) {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        border-top: 1px solid #fefefe;
+        background: var(--ghost);
+        transition: all 0.2s;
       }
     }
     & .status {
