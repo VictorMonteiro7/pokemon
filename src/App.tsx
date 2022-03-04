@@ -7,7 +7,7 @@ function App() {
     <>
       <MainRoutes />          
       <footer style={{marginTop: '20px'}}>
-        <p>&copy;Victor Monteiro - Alguns direitos reservados.</p>
+        <p>&copy;Victor Monteiro - 2022</p>
       </footer>
     </>
     </ContextProvider>
