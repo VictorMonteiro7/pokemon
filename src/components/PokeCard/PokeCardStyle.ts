@@ -234,6 +234,10 @@ export const SinglePoke = styled(PokeGrid)`
       gap: unset;
       row-gap: 5px;
       position: unset;
+      font-size: 12px;
+      & h3 {
+        font-size: 14px;
+      }
     }
   }
   &::webkit-scrollbar-track {
@@ -243,9 +247,6 @@ export const SinglePoke = styled(PokeGrid)`
     width: 100%;
     row-gap: 15px;
     padding: 20px 0;
-    @media (max-width: 768px) {
-      padding-bottom: 120px;
-    }
     & .types {
       display: flex;
       justify-content: center;
