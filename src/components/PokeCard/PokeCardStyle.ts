@@ -230,6 +230,7 @@ export const SinglePoke = styled(PokeGrid)`
     gap: 10px;
     &.desktop {
       display: grid;
+      max-width: 38%;
     }
     &.mobile {
       display: none;
