@@ -1,6 +1,6 @@
 # POKÉDEX
 
-![Pokédex GIF]('./public/assets/gif-readme.gif')
+![Pokédex GIF]('public/assets/gif-readme.gif')
 
 ## How to install
 
