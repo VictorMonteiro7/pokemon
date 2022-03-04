@@ -225,16 +225,27 @@ export const SinglePoke = styled(PokeGrid)`
     position: absolute;
     top: 10px;
     right: 10px;
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-content: center;
     gap: 10px;
+    &.desktop {
+      display: grid;
+    }
+    &.mobile {
+      display: none;
+    }
     @media (max-width: 768px) {
       grid-template-columns: repeat(3, 1fr);
       gap: unset;
       row-gap: 5px;
       position: unset;
       font-size: 12px;
+      &.desktop {
+        display: none;
+      }
+      &.mobile {
+        display: grid;
+      }
       & h3 {
         font-size: 14px;
       }
