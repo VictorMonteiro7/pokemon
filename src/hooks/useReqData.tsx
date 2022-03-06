@@ -66,7 +66,7 @@ const useReqData = () => {
           if(state.dataInfo.length >= 0){
             const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
             if(!pokeInfo){
-              dispatch({type: 'SET_DATA_INFO', payload: dados  });
+              dispatch({type: 'SET_DATA_INFO', payload: dados });
             }
             setLoadingBtn(false)
           }

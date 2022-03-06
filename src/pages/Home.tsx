@@ -10,12 +10,15 @@ import { ActionButton } from '../components/Buttons/ActionButton';
 import { Search } from '../components/Search';
 import {ButtonArea} from '../components/Buttons/StyleButtons'
 import { List } from '../components/List';
+import useGetPokeTypes from '../hooks/useGetPokeTypes';
+
 
 export const Home = ()=>{  
   const {loading, offset, order, type, limit, setListaParams, listaParams, reqApi, loadingBtn, setLoadingBtn} = useReqData();
   const {state} = useContext(Context);
   const [modalOpen, setModalOpen] = useState(false);
   const [showPoke, setShowPoke] = useState(false);
+  const {setTypePoke} = useGetPokeTypes()
   useEffect(()=>{
     if(state.pokeInfo.id){
       setShowPoke(false);
@@ -32,10 +35,12 @@ export const Home = ()=>{
       if(offset) listaParams.set('offset', `${offset}`);
       listaParams.set('order', 'id');
       setListaParams(listaParams);
+      reqApi();
     } else {
       if(order) listaParams.set('order', `${order}`);
       if(type) listaParams.set('type', `${type}`);
       setListaParams(listaParams);
+      setTypePoke(type);
     }
   },[])
 
