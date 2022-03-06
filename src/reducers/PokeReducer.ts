@@ -28,8 +28,7 @@ export const PokeDataReducer = (
       return [...state, action.payload];
       break;
     case "SET_TYPE_INFO":
-      state = DataInitialState;
-      let newTypeState = DataInitialState;
+      let newTypeState = [...state];
       const pokeInfo = newTypeState.find((e) => e.id === action.payload.id);
       if (!pokeInfo) {
         newTypeState.filter((e) => e.id);

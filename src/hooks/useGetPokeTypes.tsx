@@ -1,17 +1,19 @@
 import { useContext, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
 import useReqData from "./useReqData";
 
 const useGetPokeTypes = ()=>{
-  const {dispatch} = useContext(Context);
+  const {state, dispatch} = useContext(Context);
   const [types, setTypes] = useState<any[]>([]);  
   const [liValue, setLiValue] = useState('');
   const [paraValue, setParamValue] = useSearchParams();
   const order = paraValue.get('order');
-  const [loading, setLoading] = useState(false);
   const {reqApi} = useReqData();
+  const navigate = useNavigate()
+
+
   async function getTypes(){
     const res = await Api.get('/type');
     let arr: any[] = [];
@@ -22,9 +24,9 @@ const useGetPokeTypes = ()=>{
     setTypes(arr);
   }
 
-  async function setTypePoke(type?: string){
+  async function setTypePoke(type?: string){ 
+    console.log(paraValue.get('type'))
     if(paraValue.get('type') && paraValue.get('type') !== 'all'){
-      setLoading(true);
       dispatch({type: 'RESET'});
       const res = await Api.get(`/type/${type}`);
       res.pokemon.map(async (item: any)=>{
@@ -41,13 +43,23 @@ const useGetPokeTypes = ()=>{
           types: res2.types,
           typeWaS: res.damage_relations
         }
-        dispatch({type: 'SET_TYPE_INFO', payload: dados });
-        dispatch({type: 'ORDER_DATA', payload: {order: order, type: liValue}});
+
+        if(state.dataInfo.length === 0){
+          dispatch({
+            type: 'SET_DATA_INFO',
+            payload: dados
+          })
+        }
+        else {
+          dispatch({type: 'SET_TYPE_INFO', payload: dados });
+          dispatch({type: 'ORDER_DATA', payload: {order: order, type: liValue}});
+        }
         dispatch({type: 'SET_MAX_POKE', payload: {
           maxPoke: res.pokemon.length
         }});
       })
-    } else {
+    } 
+    if(type === 'all'){
       paraValue.set('order', 'id');
       paraValue.delete('type');
       paraValue.set('limit', '20');
@@ -63,7 +75,6 @@ const useGetPokeTypes = ()=>{
     setLiValue,
     paraValue,
     setParamValue,
-    setLoading
   })
 }
 export default useGetPokeTypes;
