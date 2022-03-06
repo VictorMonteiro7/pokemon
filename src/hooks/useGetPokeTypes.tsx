@@ -25,7 +25,6 @@ const useGetPokeTypes = ()=>{
   }
 
   async function setTypePoke(type?: string){ 
-    console.log(paraValue.get('type'))
     if(paraValue.get('type') && paraValue.get('type') !== 'all'){
       dispatch({type: 'RESET'});
       const res = await Api.get(`/type/${type}`);
@@ -64,6 +63,8 @@ const useGetPokeTypes = ()=>{
       paraValue.delete('type');
       paraValue.set('limit', '20');
       setParamValue(paraValue);
+      dispatch({type: 'RESET'});
+      console.log('foi por aqui')
       reqApi();
     }
   }

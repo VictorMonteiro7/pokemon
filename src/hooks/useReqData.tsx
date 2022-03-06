@@ -35,7 +35,7 @@ const useReqData = () => {
           n: res.count
         }
       })
-      res.results.forEach(async (item: TypePokemon)=>{       
+      res.results.forEach(async (item: TypePokemon)=>{  
         const res2 = await Api.get(`/pokemon/${item.name}`)
         const types: TypePokemonTypes = await Api.get(`/type/${res2.types[0].type.name}`);       
           const dados = {
@@ -50,23 +50,11 @@ const useReqData = () => {
             stats: res2.stats, 
             typeWaS: types.damage_relations
           }
-          if(order || type){
-            const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
-            if(!pokeInfo){
-              dispatch({
-                type: 'ORDER_DATA',
-                payload: {
-                  order: order,
-                  type: type
-                }
-              })
-            }
-            setLoading(false)
-          }
           if(state.dataInfo.length >= 0){
             const pokeInfo = state.dataInfo.find(e=>e.id === res2.id);
             if(!pokeInfo){
               dispatch({type: 'SET_DATA_INFO', payload: dados });
+              dispatch({type: 'ORDER_DATA', payload: {order: 'id'}});
             }
             setLoadingBtn(false)
           }
