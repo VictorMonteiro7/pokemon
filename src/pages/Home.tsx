@@ -42,6 +42,7 @@ export const Home = ()=>{
       setListaParams(listaParams);
       setTypePoke(type);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
 

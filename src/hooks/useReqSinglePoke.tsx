@@ -1,13 +1,13 @@
 import { useContext,useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Api } from '../api';
-import { PokeBasicInfo, PokemonId, TypePokemonTypes } from '../types/MainTypes';
+import { PokemonId, TypePokemonTypes } from '../types/MainTypes';
 import { Context } from '../contexts/Context';
+import { acharCaminho } from '../helper/acharCaminho';
 type PropsType = {
   id: string;
 }
 export const useReqSinglePoke = ({id}: PropsType) =>{
-  const [data, setData] = useState<PokeBasicInfo>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {dispatch} = useContext(Context);
@@ -22,7 +22,7 @@ export const useReqSinglePoke = ({id}: PropsType) =>{
         payload: {
           id: res.id,
           sprites:{
-            front_default: res.sprites && res.sprites.front_default,
+            front_default: res.sprites && acharCaminho(res.sprites),
             animation: res.sprites && res.sprites.versions['generation-v']['black-white'].animated.front_default     
           },
           forms: res.forms,
@@ -41,7 +41,6 @@ export const useReqSinglePoke = ({id}: PropsType) =>{
     }
   }
   return({
-    data,    
     loading,
     getPokeInfo
   })

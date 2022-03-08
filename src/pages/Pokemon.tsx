@@ -21,6 +21,7 @@ export const Pokemon = () => {
     if(!state.pokeInfo.id) {
       GoToPokemon(id);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   function fecharModal({target, currentTarget}: ChangeEvent<MouseEventInit>){
