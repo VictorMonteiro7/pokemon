@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
+import { acharCaminho } from "../helper/acharCaminho";
 import { PokemonId, TypePokemonTypes } from "../types/MainTypes";
 
 
@@ -18,7 +19,7 @@ const useGoToPokemon = () => {
         payload: {
           id: res.id,
           sprites:{
-            front_default: res.sprites && res.sprites.front_default,
+            front_default: res.sprites && acharCaminho(res.sprites),
             animation: res.sprites && res.sprites.versions['generation-v']['black-white'].animated.front_default     
           },
           forms: res.forms,

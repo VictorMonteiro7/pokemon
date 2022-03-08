@@ -3,6 +3,7 @@ import { TypePokemon, TypePokemonTypes} from "../types/MainTypes";
 import {useSearchParams} from 'react-router-dom';
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
+import { acharCaminho } from "../helper/acharCaminho";
 
 const useReqData = () => {
   const [listaParams, setListaParams] = useSearchParams();
@@ -41,7 +42,7 @@ const useReqData = () => {
           const dados = {
             id: res2.id,
             sprites:{
-              front_default: res2.sprites.front_default,
+              front_default: res2.sprites && acharCaminho(res2.sprites),
               animation: res2.sprites.versions['generation-v']['black-white'].animated.front_default            
             },
             forms: res2.forms,

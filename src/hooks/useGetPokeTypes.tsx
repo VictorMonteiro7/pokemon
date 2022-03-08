@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Api } from "../api";
 import { Context } from "../contexts/Context";
+import { acharCaminho } from "../helper/acharCaminho";
 import useReqData from "./useReqData";
 
 const useGetPokeTypes = ()=>{
@@ -11,7 +12,6 @@ const useGetPokeTypes = ()=>{
   const [paraValue, setParamValue] = useSearchParams();
   const order = paraValue.get('order');
   const {reqApi} = useReqData();
-  const navigate = useNavigate()
 
 
   async function getTypes(){
@@ -36,7 +36,7 @@ const useGetPokeTypes = ()=>{
           forms: res2.forms,
           stats: res2.stats,
           sprites: {
-            front_default: res2.sprites.other.home.front_default || res2.sprites.other['official-artwork'].front_default || res2.sprites.front_default ||  res2.sprites.other.home.front_default || res2.sprites.other['official-artwork'].front_default || res2.sprites.versions['generation-viii'].icons.front_default || res2.sprites.front_default,
+            front_default: res2.sprites && acharCaminho(res2.sprites),
             animation: res2.sprites.versions['generation-v']['black-white'].animated.front_default
           },
           types: res2.types,

@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { ActionReducerType } from "./../types/ActionReducerType";
 import { PokeBasicInfo } from "../types/MainTypes";
 
